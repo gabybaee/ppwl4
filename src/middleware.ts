@@ -39,5 +39,36 @@ app.get("/product", () => ({
   name: "Laptop"
 }))
 
+// PRAKTIKUM 7 - Custom Validation Error
+app.post(
+  "/login",
+  ({ body }) => {
+    return {
+      message: "Login success",
+      user: body.email
+    }
+  },
+  {
+    body: t.Object({
+      email: t.String(), 
+      password: t.String({ minLength: 8 })
+    })
+  }
+)
+
+app.onError(({ code, error, set }) => {
+
+  if (code === "VALIDATION") {
+    set.status = 400
+
+    return {
+      success: false,
+      message: "Validation Error",
+      detail: error.message
+    }
+  }
+})
+
+
 app.listen(3000)
 console.log("Server running at http://localhost:3000")
