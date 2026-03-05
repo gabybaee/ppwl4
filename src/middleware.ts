@@ -21,15 +21,23 @@ app.get(
         set.status = 401
         return { success: false, message: "Unauthorized" }
       }
-    },
-    description: "Admin stats endpoint",
-    // Response schema supaya OpenAPI mengenali route
-    response: {
-      200: t.Object({ stats: t.Number() }),
-      401: t.Object({ success: t.Boolean(), message: t.String() })
     }
   }
 )
+ 
+// Praktikum 6 - afterHandle
+app.onAfterHandle(({ response }) => {
+  return {
+    success: true,
+    message: "data tersedia",
+    data: response
+  }
+})
+
+app.get("/product", () => ({
+  id: 1,
+  name: "Laptop"
+}))
 
 app.listen(3000)
 console.log("Server running at http://localhost:3000")
