@@ -43,7 +43,7 @@ const app = new Elysia()
     }
   )
 
-  // VALIDASI RESPONSE
+ 
   .get(
     "/ping",
     () => {
@@ -59,6 +59,21 @@ const app = new Elysia()
       })
     }
   )
+
+  // Praktikum 3 - VALIDASI RESPONSE
+  .get("/stats", () => {
+    return {
+      total: 100,
+      active: 80
+    }
+  },
+  {
+    response: t.Object({
+      total: t.Number(),
+      active: t.Number()
+    })
+  }
+)
   .listen(3000);
 
 console.log(`🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`);
