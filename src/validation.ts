@@ -4,7 +4,7 @@ import { openapi } from "@elysiajs/openapi";
 const app = new Elysia()
   .use(openapi())
 
-  // POST dengan body validation
+  // POST dengan body validation Praktikum 1
   .post(
     "/request",
     ({ body }) => {
